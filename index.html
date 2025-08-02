@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Feliz Día de la Novia</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+        color: #5e2b41;
+        overflow-x: hidden;
+        min-height: 100vh;
+        position: relative;
+        touch-action: manipulation;
+      }
+
+      .hearts {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .heart {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff6b8b"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>')
+          no-repeat center center;
+        background-size: contain;
+        opacity: 0;
+        animation: float 6s ease-in infinite;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .container {
+        width: 95%;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 20px 10px;
+        position: relative;
+        z-index: 2;
+        text-align: center;
+      }
+
+      h1 {
+        font-family: "Dancing Script", cursive;
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        color: #d23669;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .photo-frame {
+        width: 200px;
+        height: 200px;
+        margin: 20px auto;
+        border: 8px solid white;
+        border-radius: 50%;
+        box-shadow: 0 5px 15px rgba(210, 54, 105, 0.3);
+        overflow: hidden;
+        position: relative;
+        transition: all 0.3s ease;
+      }
+
+      .photo-frame:active {
+        transform: rotate(5deg) scale(1.05);
+        box-shadow: 0 8px 20px rgba(210, 54, 105, 0.4);
+      }
+
+      .photo-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .photo-frame:active img {
+        transform: scale(1.1);
+      }
+
+      .message {
+        background-color: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        margin: 20px 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .message::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, #ff6b8b, #ff8e53);
+      }
+
+      p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 12px;
+      }
+
+      .signature {
+        font-family: "Dancing Script", cursive;
+        font-size: 1.8rem;
+        color: #d23669;
+        margin-top: 15px;
+      }
+
+      .btn {
+        display: inline-block;
+        background: linear-gradient(45deg, #ff6b8b, #ff8e53);
+        color: white;
+        padding: 12px 25px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 15px;
+        box-shadow: 0 4px 10px rgba(210, 54, 105, 0.3);
+        transition: all 0.2s ease;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        width: 80%;
+        max-width: 250px;
+      }
+
+      .btn:active {
+        transform: translateY(2px);
+        box-shadow: 0 2px 5px rgba(210, 54, 105, 0.3);
+      }
+
+      .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin: 25px 0;
+      }
+
+      .gallery-item {
+        width: 28vw;
+        height: 28vw;
+        max-width: 120px;
+        max-height: 120px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.2s ease;
+      }
+
+      .gallery-item:active {
+        transform: scale(1.1);
+        box-shadow: 0 5px 15px rgba(210, 54, 105, 0.3);
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      footer {
+        margin-top: 30px;
+        padding: 15px;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #5e2b41;
+      }
+
+      /* Efecto al tocar la pantalla */
+      .touch-effect {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 107, 139, 0.6);
+        border-radius: 50%;
+        transform: scale(0);
+        animation: touch 0.5s ease-out;
+        pointer-events: none;
+      }
+
+      @keyframes touch {
+        to {
+          transform: scale(2);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hearts" id="hearts"></div>
+
+    <div class="container">
+      <h1>Feliz Día Mi corazon</h1>
+
+      <div class="photo-frame">
+        <img src="minovia.jpg" alt="Pareja feliz" />
+      </div>
+
+      <div class="message">
+        <p>Gracias por estar conmigo y por hacerme sentir tan bien</p>
+        <p>
+          Cada momento a tu lado es un bonito recuerdo que guardo en mi corazón.
+        </p>
+        <p>Eres todo para mi, mi polancoas, mi amorcito</p>
+        <p class="signature">Te amo</p>
+      </div>
+
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="1.jpg" alt="Momento especial 1" />
+        </div>
+        <div class="gallery-item">
+          <img src="2.jpg" alt="Momento especial 2" />
+        </div>
+        <div class="gallery-item">
+          <img src="3.jpg" alt="Momento especial 3" />
+        </div>
+        <div class="gallery-item">
+          <img
+            src="Imagen de WhatsApp 2025-08-01 a las 20.52.52_36fbdc47.jpg"
+            alt="Momento especial 4"
+          />
+        </div>
+      </div>
+
+      <button class="btn" id="surpriseBtn">Tocame 7w7</button>
+    </div>
+
+    <footer>
+      <p>Para ti, que me haces feliz siempre jejejeje</p>
+    </footer>
+
+    <script>
+      // Efecto de corazones flotantes (menos para móvil)
+      function createHearts() {
+        const heartsContainer = document.getElementById("hearts");
+        const heartCount = 8; // Menos corazones para mejor rendimiento
+
+        for (let i = 0; i < heartCount; i++) {
+          const heart = document.createElement("div");
+          heart.classList.add("heart");
+
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.top = Math.random() * 100 + "vh";
+
+          const size = Math.random() * 15 + 10;
+          heart.style.width = size + "px";
+          heart.style.height = size + "px";
+
+          heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+          heart.style.animationDelay = Math.random() * 2 + "s";
+
+          heartsContainer.appendChild(heart);
+        }
+      }
+
+      // Efecto al tocar la pantalla
+      document.addEventListener("touchstart", function (e) {
+        const touch = e.touches[0];
+        const effect = document.createElement("div");
+        effect.className = "touch-effect";
+        effect.style.left = touch.pageX - 25 + "px";
+        effect.style.top = touch.pageY - 25 + "px";
+        document.body.appendChild(effect);
+
+        // Eliminar después de la animación
+        setTimeout(() => {
+          effect.remove();
+        }, 500);
+
+        // Crear corazón donde se toca
+        if (Math.random() > 0.7) {
+          // 30% de probabilidad
+          const heart = document.createElement("div");
+          heart.classList.add("heart");
+          heart.style.left = touch.pageX - 10 + "px";
+          heart.style.top = touch.pageY - 10 + "px";
+          heart.style.width = "20px";
+          heart.style.height = "20px";
+          heart.style.animationDuration = "4s";
+          document.getElementById("hearts").appendChild(heart);
+
+          setTimeout(() => {
+            heart.remove();
+          }, 4000);
+        }
+      });
+
+      // Botón sorpresa
+      document
+        .getElementById("surpriseBtn")
+        .addEventListener("click", function () {
+          const messages = [
+            "GGOGOGOGGOGOGOGO",
+            "FELIZ DIA MI AMORCITO KAWAI",
+            "ERES MI LERO LERO",
+            "ME HACES FELIZ MI AMOR",
+            "ME GUSTAZ MUCHO MI AMOR",
+            "ME KIERO KASAR CONTIGO",
+            "MUEJEJEJEJEJEJE",
+            "TE AMO CON TODO MI CORAZON",
+          ];
+
+          const randomMessage =
+            messages[Math.floor(Math.random() * messages.length)];
+
+          // Mostrar mensaje como notificación estilo móvil
+          const notification = document.createElement("div");
+          notification.style.position = "fixed";
+          notification.style.bottom = "20px";
+          notification.style.left = "50%";
+          notification.style.transform = "translateX(-50%)";
+          notification.style.backgroundColor = "white";
+          notification.style.color = "#d23669";
+          notification.style.padding = "15px 25px";
+          notification.style.borderRadius = "25px";
+          notification.style.boxShadow = "0 4px 15px rgba(0,0,0,0.2)";
+          notification.style.zIndex = "1000";
+          notification.style.fontWeight = "600";
+          notification.style.maxWidth = "80%";
+          notification.style.textAlign = "center";
+          notification.style.animation = "fadeIn 0.3s ease-in";
+          notification.textContent = randomMessage;
+
+          document.body.appendChild(notification);
+
+          setTimeout(() => {
+            notification.style.animation = "fadeOut 0.3s ease-out";
+            setTimeout(() => {
+              notification.remove();
+            }, 300);
+          }, 3000);
+
+          // Crear explosión de corazones
+          for (let i = 0; i < 15; i++) {
+            setTimeout(() => {
+              createHearts();
+            }, i * 100);
+          }
+        });
+
+      // Inicializar corazones al cargar la página
+      window.addEventListener("load", function () {
+        createHearts();
+
+        // Crear corazones periódicamente (menos frecuente para móvil)
+        setInterval(createHearts, 5000);
+      });
+
+      // Añadir estilos de animación para la notificación
+      const style = document.createElement("style");
+      style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+                to { opacity: 1; transform: translateX(-50%) translateY(0); }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; transform: translateX(-50%) translateY(0); }
+                to { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            }
+        `;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>
